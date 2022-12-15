@@ -31,7 +31,7 @@ public class CaptureController {
 	//get poisson
 	@GetMapping("/captures")
 	public List<Capture> getAllCaptures(){
-		return this.captureRepository.findAll();
+		return captureRepository.findAll();
 	}
 	
 	// get poisson by id	
