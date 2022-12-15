@@ -17,7 +17,7 @@ public class Capture {
 	
 	@Id
 	@GeneratedValue(strategy= GenerationType.IDENTITY)	
-	private int id_capture;
+	private int capture_id;
 	
 	@Column (name="type")
 	private TypeCapture type;
@@ -80,12 +80,12 @@ public class Capture {
 				
 	}
 
-	public int getId_capture() {
-		return id_capture;
+	public int getCapture_id() {
+		return capture_id;
 	}
 
-	public void setId_capture(int id_capture) {
-		this.id_capture = id_capture;
+	public void setCapture_id(int capture_id) {
+		this.capture_id = capture_id;
 	}
 
 	public String getNom() {

@@ -1,9 +1,12 @@
 package net.fishinapi.springboot.controller;
 
 import java.util.HashMap;
+
 import java.util.List;
 import java.util.Map;
+import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,17 +25,18 @@ import net.fishinapi.springboot.repository.CaptureRepository;
 @RequestMapping("/api/v1/")
 public class CaptureController {
 	
+	@Autowired
 	private CaptureRepository captureRepository;
 
 	//get poisson
-	@GetMapping("capture")
+	@GetMapping("/captures")
 	public List<Capture> getAllCaptures(){
 		return this.captureRepository.findAll();
 	}
 	
 	// get poisson by id	
-	@GetMapping("/captures/{id_capture}")
-	public ResponseEntity<Capture> getCaptureById(@PathVariable(value="id_capture") Long captureId)
+	@GetMapping("/captures/{capture_id}")
+	public ResponseEntity<Capture> getCaptureById(@PathVariable(value="capture_id") Long captureId)
 	throws ResourceNotFoundException{
 		Capture capture = captureRepository.findById(captureId)
 				.orElseThrow(()->new ResourceNotFoundException ("Pas de poisson trouvé à cet id :: "+captureId));
@@ -40,14 +44,14 @@ public class CaptureController {
 	}
 		
 	//save poisson
-	@PostMapping ("capture")
+	@PostMapping ("/captures")
 	public Capture createCapture(@RequestBody Capture capture) {
 		return this.captureRepository.save(capture);
 		
 	}
 	//update
-	@PutMapping("captures/{id_capture}")
-	public ResponseEntity<Capture> updateCapture(@PathVariable(value="id_capture") Long captureId, /*@Valid*/ @RequestBody Capture captureDetails) throws ResourceNotFoundException{
+	@PutMapping("/captures/{capture_id}")
+	public ResponseEntity<Capture> updateCapture(@PathVariable(value="capture_id") Long captureId, @Valid @RequestBody Capture captureDetails) throws ResourceNotFoundException{
 		
 		Capture capture = captureRepository.findById(captureId)
 				.orElseThrow(()->new ResourceNotFoundException ("Pas de poisson trouvé à cet id :: "+captureId));
@@ -64,8 +68,8 @@ public class CaptureController {
 		return ResponseEntity.ok(this.captureRepository.save(capture));
 	}
 	//delete
-	@DeleteMapping("captures/{id_capture}")
-	public Map<String,Boolean> deletePoisson(@PathVariable(value="id_capture") Long captureId) throws ResourceNotFoundException{
+	@DeleteMapping("/captures/{capture_id}")
+	public Map<String,Boolean> deletePoisson(@PathVariable(value="capture_id") Long captureId) throws ResourceNotFoundException{
 		Capture capture = captureRepository.findById(captureId)
 				.orElseThrow(()->new ResourceNotFoundException ("Pas de poisson trouvé à cet id :: "+captureId));
 		this.captureRepository.delete(capture);
