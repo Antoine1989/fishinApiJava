@@ -50,7 +50,7 @@ public class CaptureController {
 	//save poisson
 	@RequestMapping(value = "/captures",method = RequestMethod.POST,produces = "application/json")
 	//@PostMapping ("/captures")
-	@ResponseBody
+	//@ResponseBody
 	public Capture createCapture(@RequestBody Capture capture) throws ResourceNotFoundException{
 		String poisson=  TypeCapture.POISSON.toString();
 		String cephalopode=  TypeCapture.CEPHALOPODE.toString();
