@@ -7,6 +7,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 
@@ -20,7 +22,7 @@ public class Capture {
 	private int capture_id;
 	
 	@Column (name="type")
-	private TypeCapture type;
+	private String type;
 	
 	@Column (name="nom")
 	private String nom;
@@ -52,18 +54,19 @@ public class Capture {
 	@Column (name="photo")
 	private String photo;
 	
-	@Column (name="spot_id")
-	private int spot_id;
+	@ManyToOne @JoinColumn(name="spot_id", nullable=false)
+    private Spot spot;
 	
-	@Column (name="user_id")
-	private int user_id;
+	@ManyToOne @JoinColumn(name="user_id", nullable=false)
+    private User user;
 	
 	public Capture() {}
+
 	
-	public Capture(TypeCapture type,String nom, String technique, int quantite, double poids, double longueur, Date date_peche,
-			String maree, long coef, String commentaires, String photo, int spot_id, int user_id) {
+	public Capture(String type, String nom, String technique, int quantite, double poids, double longueur,
+			Date date_peche, String maree, long coef, String commentaires, String photo, Spot spot, User user) {
 		super();
-		this.type=type;
+		this.type = type;
 		this.nom = nom;
 		this.technique = technique;
 		this.quantite = quantite;
@@ -74,11 +77,10 @@ public class Capture {
 		this.coef = coef;
 		this.commentaires = commentaires;
 		this.photo = photo;
-		this.spot_id = spot_id;
-		this.user_id = user_id;
-		
-				
+		this.spot = spot;
+		this.user = user;
 	}
+
 
 	public int getCapture_id() {
 		return capture_id;
@@ -88,20 +90,20 @@ public class Capture {
 		this.capture_id = capture_id;
 	}
 
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
 	public String getNom() {
 		return nom;
 	}
 
 	public void setNom(String nom) {
 		this.nom = nom;
-	}
-
-	public TypeCapture getType() {
-		return type;
-	}
-
-	public void setType(TypeCapture type) {
-		this.type = type;
 	}
 
 	public String getTechnique() {
@@ -176,22 +178,23 @@ public class Capture {
 		this.photo = photo;
 	}
 
-	public int getSpot_id() {
-		return spot_id;
+	public Spot getSpot() {
+		return spot;
 	}
 
-	public void setSpot_id(int spot_id) {
-		this.spot_id = spot_id;
+	public void setSpot(Spot spot) {
+		this.spot = spot;
 	}
 
-	public int getUser_id() {
-		return user_id;
+	public User getUser() {
+		return user;
 	}
 
-	public void setUser_id(int user_id) {
-		this.user_id = user_id;
+	public void setUser(User user) {
+		this.user = user;
 	}
 	
+
 	
 	
 }

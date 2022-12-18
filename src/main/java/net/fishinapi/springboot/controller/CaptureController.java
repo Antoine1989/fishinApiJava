@@ -1,5 +1,6 @@
 package net.fishinapi.springboot.controller;
 
+import java.awt.PageAttributes.MediaType;
 import java.util.HashMap;
 
 import java.util.List;
@@ -15,10 +16,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import net.fishinapi.springboot.exception.ResourceNotFoundException;
 import net.fishinapi.springboot.model.Capture;
+import net.fishinapi.springboot.model.TypeCapture;
 import net.fishinapi.springboot.repository.CaptureRepository;
 
 @RestController
@@ -44,8 +48,23 @@ public class CaptureController {
 	}
 		
 	//save poisson
-	@PostMapping ("/captures")
-	public Capture createCapture(@RequestBody Capture capture) {
+	@RequestMapping(value = "/captures",method = RequestMethod.POST,produces = "application/json")
+	//@PostMapping ("/captures")
+	@ResponseBody
+	public Capture createCapture(@RequestBody Capture capture) throws ResourceNotFoundException{
+		String poisson=  TypeCapture.POISSON.toString();
+		String cephalopode=  TypeCapture.CEPHALOPODE.toString();
+		String crustace=  TypeCapture.CRUSTACE.toString();
+		if(capture.getType()!=poisson){
+			throw new ResourceNotFoundException ("La capture doit être de type 'POISSON','CRUSTACE' ou 'CEPHALOPODE'");
+		}
+		else if(capture.getType()!=crustace) {
+			throw new ResourceNotFoundException ("La capture doit être de type 'POISSON','CRUSTACE' ou 'CEPHALOPODE'");
+		}
+		else if(capture.getType()!=cephalopode) {
+			throw new ResourceNotFoundException ("La capture doit être de type 'POISSON','CRUSTACE' ou 'CEPHALOPODE'");
+		}
+		else 
 		return this.captureRepository.save(capture);
 		
 	}
