@@ -26,20 +26,17 @@ public class User {
 	private String password;
 	
 	@OneToMany( targetEntity=Spot.class, mappedBy="user" )
-    private List<Spot> spot = new ArrayList<>();
+    private List<Spot> listspot = new ArrayList<>();
 	
-	@OneToMany( targetEntity=Capture.class, mappedBy="user" )
-    private List<Capture> capture = new ArrayList<>();
+	
 	
 	public User() {}
-
-	public User(String nom, String password, List<Spot> spot, List<Capture> capture) {
-		super();
+	
+	public User(String nom, String password) {
 		this.nom = nom;
 		this.password = password;
-		this.spot = spot;
-		this.capture = capture;
 	}
+
 
 	public int getUser_id() {
 		return user_id;
@@ -65,23 +62,18 @@ public class User {
 		this.password = password;
 	}
 
-	public List<Spot> getSpot() {
+	/*public List<Spot> getSpot() {
 		return spot;
 	}
 
 	public void setSpot(List<Spot> spot) {
 		this.spot = spot;
-	}
+	}*/
 
-	public List<Capture> getCapture() {
-		return capture;
+	public void addSpot(Spot spot) {
+		listspot.add(spot);
+		spot.setUser(this);
+	
 	}
-
-	public void setCapture(List<Capture> capture) {
-		this.capture = capture;
-	}
-	
-	
-	
 	
 }

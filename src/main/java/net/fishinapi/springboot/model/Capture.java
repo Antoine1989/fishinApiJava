@@ -57,14 +57,14 @@ public class Capture {
 	@ManyToOne @JoinColumn(name="spot_id", nullable=false)
     private Spot spot;
 	
-	@ManyToOne @JoinColumn(name="user_id", nullable=false)
-    private User user;
+	/*@ManyToOne @JoinColumn(name="user_id", nullable=false)
+    private User user;*/
 	
 	public Capture() {}
 
 	
 	public Capture(String type, String nom, String technique, int quantite, double poids, double longueur,
-			Date date_peche, String maree, long coef, String commentaires, String photo, Spot spot, User user) {
+			Date date_peche, String maree, long coef, String commentaires, String photo, Spot spot/*, User user*/) {
 		super();
 		this.type = type;
 		this.nom = nom;
@@ -78,7 +78,7 @@ public class Capture {
 		this.commentaires = commentaires;
 		this.photo = photo;
 		this.spot = spot;
-		this.user = user;
+		//this.user = user;
 	}
 
 
@@ -186,13 +186,13 @@ public class Capture {
 		this.spot = spot;
 	}
 
-	public User getUser() {
+	/*public User getUser() {
 		return user;
 	}
 
 	public void setUser(User user) {
 		this.user = user;
-	}
+	}*/
 	
 
 	

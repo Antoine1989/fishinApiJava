@@ -31,16 +31,16 @@ public class Spot {
     private User user;
 	
 	@OneToMany( targetEntity=Capture.class, mappedBy="spot" )
-    private List<Capture> capture = new ArrayList<>();
+    private List<Capture> listcapture = new ArrayList<>();
 	
 	public Spot() {}
 
-	public Spot(String nom, String ville, User user, List<Capture> capture) {
+	public Spot(String nom, String ville, User user, List<Capture> listcapture) {
 		super();
 		this.nom = nom;
 		this.ville = ville;
 		this.user = user;
-		this.capture = capture;
+		this.listcapture = listcapture;
 	}
 
 	public int getSpot_id() {
@@ -76,14 +76,19 @@ public class Spot {
 	}
 
 	public List<Capture> getCapture() {
-		return capture;
+		return listcapture;
 	}
 
-	public void setCapture(List<Capture> capture) {
-		this.capture = capture;
+	public void setCapture(List<Capture> listcapture) {
+		this.listcapture = listcapture;
 	}
 	
 	
+	public void addCapture(Capture capture) {
+		listcapture.add(capture);
+		capture.setSpot(this);
+	
+	}
 	
 
 	
