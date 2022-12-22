@@ -2,14 +2,22 @@ package net.fishinapi.springboot.model;
 
 import java.sql.Date;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+
 
 
 
@@ -54,17 +62,20 @@ public class Capture {
 	@Column (name="photo")
 	private String photo;
 	
-	@ManyToOne @JoinColumn(name="spot_id", nullable=false)
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(name="spot_id", nullable=false)
+	@OnDelete(action = OnDeleteAction.CASCADE)
+	@JsonIgnore
+	//@JsonIgnoreProperties("spot")
     private Spot spot;
 	
-	/*@ManyToOne @JoinColumn(name="user_id", nullable=false)
-    private User user;*/
+	
 	
 	public Capture() {}
 
 	
 	public Capture(String type, String nom, String technique, int quantite, double poids, double longueur,
-			Date date_peche, String maree, long coef, String commentaires, String photo, Spot spot/*, User user*/) {
+			Date date_peche, String maree, long coef, String commentaires, String photo, Spot spot) {
 		super();
 		this.type = type;
 		this.nom = nom;
@@ -78,7 +89,7 @@ public class Capture {
 		this.commentaires = commentaires;
 		this.photo = photo;
 		this.spot = spot;
-		//this.user = user;
+	
 	}
 
 
@@ -186,16 +197,15 @@ public class Capture {
 		this.spot = spot;
 	}
 
-	/*public User getUser() {
-		return user;
+
+	@Override
+	public String toString() {
+		return "Capture [capture_id=" + capture_id + ", type=" + type + ", nom=" + nom + ", technique=" + technique
+				+ ", quantite=" + quantite + ", poids=" + poids + ", longueur=" + longueur + ", date_peche="
+				+ date_peche + ", maree=" + maree + ", coef=" + coef + ", commentaires=" + commentaires + ", photo="
+				+ photo + ", spot=" + spot + "]";
 	}
 
-	public void setUser(User user) {
-		this.user = user;
-	}*/
-	
-
-	
-	
+				
 }
 	

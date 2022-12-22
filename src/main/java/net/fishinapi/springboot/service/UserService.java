@@ -6,7 +6,7 @@ import java.util.List;
 import net.fishinapi.springboot.model.User;
 
 public class UserService {
-	static List<User> users;
+	/*static List<User> users;
 	
 	static {
 		users= new ArrayList<User>();
@@ -17,5 +17,5 @@ public class UserService {
 	
 	public List<User> getAllUsers(){
 		return users;
-	}
+	}*/
 }

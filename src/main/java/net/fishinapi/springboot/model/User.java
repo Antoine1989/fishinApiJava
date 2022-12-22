@@ -11,8 +11,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
+
 @Entity
-@Table (name ="user")
+@Table (name ="utilisateur")
 public class User {
 
 	@Id
@@ -25,6 +26,7 @@ public class User {
 	@Column (name="password")
 	private String password;
 	
+
 	@OneToMany( targetEntity=Spot.class, mappedBy="user" )
     private List<Spot> listspot = new ArrayList<>();
 	
@@ -74,6 +76,11 @@ public class User {
 		listspot.add(spot);
 		spot.setUser(this);
 	
+	}
+
+	@Override
+	public String toString() {
+		return "User [user_id=" + user_id + ", nom=" + nom + ", password=" + password + ", listspot=" + listspot + "]";
 	}
 	
 }

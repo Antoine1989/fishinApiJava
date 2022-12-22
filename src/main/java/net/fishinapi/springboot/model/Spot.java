@@ -3,6 +3,8 @@ package net.fishinapi.springboot.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -30,17 +32,18 @@ public class Spot {
 	@ManyToOne @JoinColumn(name="user_id", nullable=false)
     private User user;
 	
-	@OneToMany( targetEntity=Capture.class, mappedBy="spot" )
-    private List<Capture> listcapture = new ArrayList<>();
+	/*@OneToMany( targetEntity=Capture.class, mappedBy="spot")
+	@JsonIgnoreProperties("capture")
+    private List<Capture> listcapture = new ArrayList<>();*/
 	
 	public Spot() {}
 
-	public Spot(String nom, String ville, User user, List<Capture> listcapture) {
+	public Spot(String nom, String ville, User user /*, List<Capture> listcapture*/) {
 		super();
 		this.nom = nom;
 		this.ville = ville;
 		this.user = user;
-		this.listcapture = listcapture;
+		//this.listcapture = listcapture;
 	}
 
 	public int getSpot_id() {
@@ -75,7 +78,7 @@ public class Spot {
 		this.user = user;
 	}
 
-	public List<Capture> getCapture() {
+	/*public List<Capture> getCapture() {
 		return listcapture;
 	}
 
@@ -88,6 +91,12 @@ public class Spot {
 		listcapture.add(capture);
 		capture.setSpot(this);
 	
+	}*/
+
+	@Override
+	public String toString() {
+		return "Spot [spot_id=" + spot_id + ", nom=" + nom + ", ville=" + ville + ", user=" + user /*+ ", listcapture="
+				+ listcapture */+ "]";
 	}
 	
 

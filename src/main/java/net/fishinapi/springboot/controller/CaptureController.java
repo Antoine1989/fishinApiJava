@@ -1,6 +1,6 @@
 package net.fishinapi.springboot.controller;
 
-import java.awt.PageAttributes.MediaType;
+
 import java.util.HashMap;
 
 import java.util.List;
@@ -16,8 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+
 import org.springframework.web.bind.annotation.RestController;
 
 import net.fishinapi.springboot.exception.ResourceNotFoundException;
@@ -39,7 +38,7 @@ public class CaptureController {
 	}
 	
 	// get poisson by id	
-	@GetMapping("/captures/{capture_id}")
+	@GetMapping(path="/captures/{capture_id}", produces={"application/json", "application/xml"})
 	public ResponseEntity<Capture> getCaptureById(@PathVariable(value="capture_id") Long captureId)
 	throws ResourceNotFoundException{
 		Capture capture = captureRepository.findById(captureId)
@@ -49,7 +48,7 @@ public class CaptureController {
 		
 	//save poisson
 	//@RequestMapping(value = "/captures",method = RequestMethod.POST,produces = "application/json")
-	@PostMapping ("/captures")
+	@PostMapping (path="/captures", produces={"application/json", "application/xml"})
 	//@ResponseBody
 	public Capture createCapture(@RequestBody Capture capture) throws ResourceNotFoundException{
 		String poisson=  TypeCapture.POISSON.toString();
