@@ -9,12 +9,13 @@ import org.springframework.stereotype.Repository;
 import jakarta.transaction.Transactional;
 import net.fishinapi.springboot.model.Capture;
 
+
 @Repository
 public interface CaptureRepository extends JpaRepository<Capture, Long> {
 
 	//List<Capture> findAll();
 	
-	List<Capture> findBySpotId(Long spotId);
+	List<Capture> findBySpotId(Long postId);
 	  
 	 /* @Transactional
 	  void deleteBySpotId(long spotId);*/

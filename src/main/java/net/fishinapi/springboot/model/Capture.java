@@ -26,8 +26,8 @@ import jakarta.persistence.Table;
 public class Capture {
 	
 	@Id
-	@GeneratedValue (strategy= GenerationType.SEQUENCE,generator="capture_generator")//(strategy= GenerationType.IDENTITY)	
-	private long capture_id;
+	@GeneratedValue (strategy= GenerationType.IDENTITY,generator="capture_generator")//(strategy= GenerationType.IDENTITY)	
+	private long id;
 	
 	@Column (name="type")
 	private String type;
@@ -62,7 +62,7 @@ public class Capture {
 	@Column (name="photo")
 	private String photo;
 	
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@ManyToOne(fetch = FetchType.EAGER/*LAZY*/, optional = false)
 	@JoinColumn(name="spot_id", nullable=false)
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	@JsonIgnore
@@ -93,8 +93,8 @@ public class Capture {
 	}
 
 
-	public long getCapture_id() {
-		return capture_id;
+	public long getId() {
+		return id;
 	}
 
 	/*public void setCapture_id(int capture_id) {
@@ -200,7 +200,7 @@ public class Capture {
 
 	@Override
 	public String toString() {
-		return "Capture [capture_id=" + capture_id + ", type=" + type + ", nom=" + nomCapture + ", technique=" + technique
+		return "Capture [capture_id=" + id + ", type=" + type + ", nom=" + nomCapture + ", technique=" + technique
 				+ ", quantite=" + quantite + ", poids=" + poids + ", longueur=" + longueur + ", date_peche="
 				+ date_peche + ", maree=" + maree + ", coef=" + coef + ", commentaires=" + commentaires + ", photo="
 				+ photo + ", spot=" + spot + "]";

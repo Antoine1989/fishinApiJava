@@ -38,11 +38,11 @@ public class SpotController {
 	}
 	
 	// get spot by id	
-	@GetMapping("/spots/{spot_id}")
-	public ResponseEntity<Spot> getSpotById(@PathVariable(value="spot_id") Long spotId)
+	@GetMapping("/spots/{id}")
+	public ResponseEntity<Spot> getSpotById(@PathVariable(value="id") long id)
 	throws ResourceNotFoundException{
-		Spot spot = spotRepository.findById(spotId)
-				.orElseThrow(()->new ResourceNotFoundException ("Pas de poisson trouvé à cet id :: "+spotId));
+		Spot spot = spotRepository.findById(id)
+				.orElseThrow(()->new ResourceNotFoundException ("Pas de poisson trouvé à cet id :: "+ id));
 				return ResponseEntity.ok().body(spot);
 	}
 		
@@ -56,21 +56,21 @@ public class SpotController {
 		
 	}
 	//update
-	@PutMapping("/spots/{spot_id}")
-	public ResponseEntity<Spot> updateSpot(@PathVariable(value="spot_id") Long spotId, @Valid @RequestBody Spot spotDetails) throws ResourceNotFoundException{
+	@PutMapping("/spots/{id}")
+	public ResponseEntity<Spot> updateSpot(@PathVariable("id") long id, @Valid @RequestBody Spot spotDetails) throws ResourceNotFoundException{
 		
-		Spot spot = spotRepository.findById(spotId)
-				.orElseThrow(()->new ResourceNotFoundException ("Pas de spot trouvé à cet id :: "+spotId));
+		Spot spot = spotRepository.findById(id)
+				.orElseThrow(()->new ResourceNotFoundException ("Pas de spot trouvé à cet id :: "+ id));
 		spot.setNomSpot(spotDetails.getNomSpot());
 		spot.setVille(spotDetails.getVille());
 		
 		return ResponseEntity.ok(this.spotRepository.save(spot));
 	}
 	//delete
-	@DeleteMapping("/spots/{spot_id}")
-	public Map<String,Boolean> deleteSpot(@PathVariable(value="spot_id") Long spotId) throws ResourceNotFoundException{
-		Spot spot = spotRepository.findById(spotId)
-				.orElseThrow(()->new ResourceNotFoundException ("Pas de poisson trouvé à cet id :: "+spotId));
+	@DeleteMapping("/spots/{id}")
+	public Map<String,Boolean> deleteSpot(@PathVariable("id") long id) throws ResourceNotFoundException{
+		Spot spot = spotRepository.findById(id)
+				.orElseThrow(()->new ResourceNotFoundException ("Pas de poisson trouvé à cet id :: "+ id));
 		this.spotRepository.delete(spot);
 		
 		 Map<String,Boolean> response =new HashMap<>();

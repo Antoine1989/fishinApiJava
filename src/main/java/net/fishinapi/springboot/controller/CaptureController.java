@@ -39,8 +39,8 @@ public class CaptureController {
 	private CaptureRepository captureRepository;
 
 	//get poisson
-	@GetMapping("/spots/{spot_id}/captures")
-	public ResponseEntity<List<Capture>> getAllCapturesBySpotId(@PathVariable(value="spot_id") Long spotId) throws ResourceNotFoundException{
+	@GetMapping("/spots/{spotId}/captures")
+	public ResponseEntity<List<Capture>> getAllCapturesBySpotId(@PathVariable(value="spotId") Long spotId) throws ResourceNotFoundException{
 		if(!spotRepository.existsById(spotId)) {
 			throw new ResourceNotFoundException("Pas de spot correspondant à cet id : " + spotId);
 		}
@@ -49,19 +49,19 @@ public class CaptureController {
 	}
 	
 	// get poisson by id	
-	@GetMapping("/captures/{capture_id}")
-	public ResponseEntity<Capture> getCaptureBySpotId(@PathVariable(value="capture_id") Long captureId)
+	@GetMapping("/captures/{id}")
+	public ResponseEntity<Capture> getCaptureBySpotId(@PathVariable(value="id") Long id)
 	throws ResourceNotFoundException{
-		Capture capture = captureRepository.findById(captureId)
-				.orElseThrow(()->new ResourceNotFoundException ("Pas de poisson trouvé à cet id :: "+captureId));
+		Capture capture = captureRepository.findById(id)
+				.orElseThrow(()->new ResourceNotFoundException ("Pas de poisson trouvé à cet id :: "+id));
 				return new ResponseEntity<>(capture, HttpStatus.OK);//ResponseEntity.ok().body(capture);
 	}
 		
 	//save poisson
 	//@RequestMapping(value = "/captures",method = RequestMethod.POST,produces = "application/json")
-	@PostMapping ("/spots/{spot_id}/captures")
+	@PostMapping ("/spots/{spotId}/captures")
 	//@ResponseBody
-	public ResponseEntity<Capture> createCapture(@PathVariable(value="spot_id") Long spotId, @RequestBody Capture captureRequest) throws ResourceNotFoundException{
+	public ResponseEntity<Capture> createCapture(@PathVariable(value="spotId") Long spotId, @RequestBody Capture captureRequest) throws ResourceNotFoundException{
 		Capture capture= spotRepository.findById(spotId).map(spot->{
 			captureRequest.setSpot(spot);
 			return captureRepository.save(captureRequest);
@@ -83,11 +83,11 @@ public class CaptureController {
 		
 	}
 	//update
-	@PutMapping("/captures/{capture_id}")
-	public ResponseEntity<Capture> updateCapture(@PathVariable(value="capture_id") Long captureId, @Valid @RequestBody Capture captureDetails) throws ResourceNotFoundException{
+	@PutMapping("/captures/{id}")
+	public ResponseEntity<Capture> updateCapture(@PathVariable("id") long id, @Valid @RequestBody Capture captureDetails) throws ResourceNotFoundException{
 		
-		Capture capture = captureRepository.findById(captureId)
-				.orElseThrow(()->new ResourceNotFoundException ("Pas de poisson trouvé à cet id :: "+captureId));
+		Capture capture = captureRepository.findById(id)
+				.orElseThrow(()->new ResourceNotFoundException ("Pas de poisson trouvé à cet id :: "+ id));
 		capture.setNomCapture(captureDetails.getNomCapture());
 		capture.setTechnique(captureDetails.getTechnique());
 		capture.setQuantite(captureDetails.getQuantite());

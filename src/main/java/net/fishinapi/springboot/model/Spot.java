@@ -20,8 +20,8 @@ import jakarta.persistence.Table;
 public class Spot {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "spot_generator")//@GeneratedValue(strategy= GenerationType.IDENTITY)	
-	private long spot_id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "spot_generator")//@GeneratedValue(strategy= GenerationType.IDENTITY)	SEQUENCE
+	private long id;
 	
 	@Column (name="nom")
 	private String nomSpot;
@@ -46,8 +46,8 @@ public class Spot {
 		//this.listcapture = listcapture;
 	}
 
-	public long getSpot_id() {
-		return spot_id;
+	public long getId() {
+		return id;
 	}
 
 	/*public void setSpot_id(int spot_id) {
@@ -95,7 +95,7 @@ public class Spot {
 
 	@Override
 	public String toString() {
-		return "Spot [spot_id=" + spot_id + ", nom=" + nomSpot + ", ville=" + ville + ", user=" + user /*+ ", listcapture="
+		return "Spot [spot_id=" + id + ", nom=" + nomSpot + ", ville=" + ville + ", user=" + user /*+ ", listcapture="
 				+ listcapture */+ "]";
 	}
 	
