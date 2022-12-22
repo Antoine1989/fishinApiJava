@@ -8,6 +8,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,6 +23,7 @@ import net.fishinapi.springboot.exception.ResourceNotFoundException;
 import net.fishinapi.springboot.model.Spot;
 import net.fishinapi.springboot.repository.SpotRepository;
 
+@CrossOrigin(origins = "http://localhost:8082")
 @RestController
 @RequestMapping("/api/v1/")
 public class SpotController {
@@ -59,7 +61,7 @@ public class SpotController {
 		
 		Spot spot = spotRepository.findById(spotId)
 				.orElseThrow(()->new ResourceNotFoundException ("Pas de spot trouvé à cet id :: "+spotId));
-		spot.setNom(spotDetails.getNom());
+		spot.setNomSpot(spotDetails.getNomSpot());
 		spot.setVille(spotDetails.getVille());
 		
 		return ResponseEntity.ok(this.spotRepository.save(spot));

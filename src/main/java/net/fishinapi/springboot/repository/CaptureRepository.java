@@ -12,12 +12,12 @@ import net.fishinapi.springboot.model.Capture;
 @Repository
 public interface CaptureRepository extends JpaRepository<Capture, Long> {
 
-	List<Capture> findAll();
+	//List<Capture> findAll();
 	
 	List<Capture> findBySpotId(Long spotId);
 	  
-	  @Transactional
-	  void deleteBySpotId(long spotId);
+	 /* @Transactional
+	  void deleteBySpotId(long spotId);*/
 	
 
 }

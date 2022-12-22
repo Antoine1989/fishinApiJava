@@ -12,7 +12,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
+
 import jakarta.persistence.Table;
 
 @Entity
@@ -20,11 +20,11 @@ import jakarta.persistence.Table;
 public class Spot {
 	
 	@Id
-	@GeneratedValue(strategy= GenerationType.IDENTITY)	
-	private int spot_id;
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "spot_generator")//@GeneratedValue(strategy= GenerationType.IDENTITY)	
+	private long spot_id;
 	
 	@Column (name="nom")
-	private String nom;
+	private String nomSpot;
 	
 	@Column (name="ville")
 	private String ville;
@@ -38,28 +38,28 @@ public class Spot {
 	
 	public Spot() {}
 
-	public Spot(String nom, String ville, User user /*, List<Capture> listcapture*/) {
+	public Spot(String nomSpot, String ville, User user /*, List<Capture> listcapture*/) {
 		super();
-		this.nom = nom;
+		this.nomSpot = nomSpot;
 		this.ville = ville;
 		this.user = user;
 		//this.listcapture = listcapture;
 	}
 
-	public int getSpot_id() {
+	public long getSpot_id() {
 		return spot_id;
 	}
 
-	public void setSpot_id(int spot_id) {
+	/*public void setSpot_id(int spot_id) {
 		this.spot_id = spot_id;
+	}*/
+
+	public String getNomSpot() {
+		return nomSpot;
 	}
 
-	public String getNom() {
-		return nom;
-	}
-
-	public void setNom(String nom) {
-		this.nom = nom;
+	public void setNomSpot(String nomSpot) {
+		this.nomSpot = nomSpot;
 	}
 
 	public String getVille() {
@@ -95,7 +95,7 @@ public class Spot {
 
 	@Override
 	public String toString() {
-		return "Spot [spot_id=" + spot_id + ", nom=" + nom + ", ville=" + ville + ", user=" + user /*+ ", listcapture="
+		return "Spot [spot_id=" + spot_id + ", nom=" + nomSpot + ", ville=" + ville + ", user=" + user /*+ ", listcapture="
 				+ listcapture */+ "]";
 	}
 	

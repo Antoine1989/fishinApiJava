@@ -6,7 +6,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+//import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -26,14 +26,14 @@ import jakarta.persistence.Table;
 public class Capture {
 	
 	@Id
-	@GeneratedValue(strategy= GenerationType.IDENTITY)	
-	private int capture_id;
+	@GeneratedValue (strategy= GenerationType.SEQUENCE,generator="capture_generator")//(strategy= GenerationType.IDENTITY)	
+	private long capture_id;
 	
 	@Column (name="type")
 	private String type;
 	
 	@Column (name="nom")
-	private String nom;
+	private String nomCapture;
 	
 	@Column (name="technique")
 	private String technique;
@@ -74,11 +74,11 @@ public class Capture {
 	public Capture() {}
 
 	
-	public Capture(String type, String nom, String technique, int quantite, double poids, double longueur,
+	public Capture(String type, String nomCapture, String technique, int quantite, double poids, double longueur,
 			Date date_peche, String maree, long coef, String commentaires, String photo, Spot spot) {
 		super();
 		this.type = type;
-		this.nom = nom;
+		this.nomCapture = nomCapture;
 		this.technique = technique;
 		this.quantite = quantite;
 		this.poids = poids;
@@ -93,13 +93,13 @@ public class Capture {
 	}
 
 
-	public int getCapture_id() {
+	public long getCapture_id() {
 		return capture_id;
 	}
 
-	public void setCapture_id(int capture_id) {
+	/*public void setCapture_id(int capture_id) {
 		this.capture_id = capture_id;
-	}
+	}*/
 
 	public String getType() {
 		return type;
@@ -109,12 +109,12 @@ public class Capture {
 		this.type = type;
 	}
 
-	public String getNom() {
-		return nom;
+	public String getNomCapture() {
+		return nomCapture;
 	}
 
-	public void setNom(String nom) {
-		this.nom = nom;
+	public void setNomCapture(String nomCapture) {
+		this.nomCapture = nomCapture;
 	}
 
 	public String getTechnique() {
@@ -200,7 +200,7 @@ public class Capture {
 
 	@Override
 	public String toString() {
-		return "Capture [capture_id=" + capture_id + ", type=" + type + ", nom=" + nom + ", technique=" + technique
+		return "Capture [capture_id=" + capture_id + ", type=" + type + ", nom=" + nomCapture + ", technique=" + technique
 				+ ", quantite=" + quantite + ", poids=" + poids + ", longueur=" + longueur + ", date_peche="
 				+ date_peche + ", maree=" + maree + ", coef=" + coef + ", commentaires=" + commentaires + ", photo="
 				+ photo + ", spot=" + spot + "]";
